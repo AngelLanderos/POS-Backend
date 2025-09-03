@@ -12,14 +12,32 @@
   },
   "license": "ISC",
   "author": "Angel Landeros",
-  "type": "module",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "npm run dev",
-    "dev": "nodemon index.js"
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^24.3.0",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
-    "nodemon": "^3.1.10"
+    "morgan": "^1.10.1",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "pg": "^8.16.3",
+    "pg-query-stream": "^4.10.3",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.26"
   }
 }
