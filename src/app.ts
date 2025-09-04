@@ -9,7 +9,7 @@ const app = express();
 app.use(morgan('dev'));
 app.use(cors());
 
-app.use('/Products',productRouter);
+app.use('/products',productRouter);
 
 app.get('/', (req: Request, res: Response) => {
     res.send('Hello Word');

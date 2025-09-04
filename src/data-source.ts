@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
     username: 'alumno',
     password: '123456',
     database: 'corral_pos_system',
-    synchronize: true, //Crea automaticamente las tablas al iniciar la conexión
+    synchronize: false, //Crea automaticamente las tablas al iniciar la conexión
     logging: false,
     entities: [Product, ProductCategory],
     subscribers: [],

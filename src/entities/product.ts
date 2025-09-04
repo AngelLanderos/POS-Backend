@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, IsNull } from "typeorm";
 import { ProductCategory } from "./productCategory";
 
-@Entity()
+@Entity({name: 'product'})
 export class Product {
     @PrimaryGeneratedColumn()
     id: number;
@@ -13,7 +13,7 @@ export class Product {
     description: string;
     @Column()
     is_active: boolean;
-    // @Column()
-    // @OneToOne(() => ProductCategory, (category) => category.id)
-    // category_id: ProductCategory
+    @Column()
+    @OneToOne(() => ProductCategory, (category) => category.id)
+     category_id: string
 };
