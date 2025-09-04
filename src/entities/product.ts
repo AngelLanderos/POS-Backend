@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, IsNull } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
 import { ProductCategory } from "./productCategory";
 
 @Entity({name: 'product'})
@@ -11,9 +11,10 @@ export class Product {
     base_price: number;
     @Column()
     description: string;
-    @Column()
+    @Column({default: true})
     is_active: boolean;
     @Column()
     @OneToOne(() => ProductCategory, (category) => category.id)
      category_id: string
 };
+
