@@ -1,20 +1,38 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+} from "typeorm";
 import { ProductCategory } from "./productCategory";
+import { ProductVariant } from "./product_variant";
+// import { ProductVariant } from "./ProductVariant";
 
-@Entity({name: 'product'})
+@Entity({ name: "products" })
 export class Product {
-    @PrimaryGeneratedColumn()
-    id: number;
-    @Column()
-    name: string;
-    @Column()
-    base_price: number;
-    @Column()
-    description: string;
-    @Column({default: true})
-    is_active: boolean;
-    @Column()
-    @OneToOne(() => ProductCategory, (category) => category.id)
-     category_id: string
-};
+  @PrimaryGeneratedColumn({ name: "product_id" })
+  id: number;
 
+  @Column()
+  name: string;
+
+  @Column("numeric", { precision: 10, scale: 2, nullable: true })
+  base_price: number;
+
+  @Column({ nullable: true })
+  description: string;
+
+  @Column({ default: true })
+  is_active: boolean;
+
+  @ManyToOne(() => ProductCategory, (category) => category.products, {
+    onDelete: "SET NULL",
+  })
+  @JoinColumn({ name: "category_id" })
+  category: ProductCategory;
+
+//   @OneToMany(() => ProductVariant, (variant) => variant.product)
+//   variants: ProductVariant[];
+}
