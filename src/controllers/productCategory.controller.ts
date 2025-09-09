@@ -5,23 +5,18 @@ import { AppDataSource } from "../data-source";
 const productCategoryRepository = AppDataSource.getRepository(ProductCategory);
 
 
-const productCategoryController = {
-    
-getProductsCategory : async (req: Request,res: Response) => {
-    try {
+const productCategoryController = { 
+    getProductsCategory : async (req: Request,res: Response) => {
+        try {
 
-        console.log('Hola');
-        const productsCategory = await productCategoryRepository.find();
-        
-        console.log(productsCategory);
+            const productsCategory = await productCategoryRepository.find();
 
-        return res.status(200).json(productsCategory);
+            return res.status(200).json(productsCategory);
 
-    } catch (error) {
-        
-    }    
-}
-
+        } catch (error) {
+            
+        }    
+    }
 };
 
 export default productCategoryController;
