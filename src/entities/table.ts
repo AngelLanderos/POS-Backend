@@ -1,7 +1,7 @@
 import { Entity, Column , PrimaryGeneratedColumn} from "typeorm";
 
-@Entity ({name: 'tables'})
-export class TablesEntity {
+@Entity ({name: 'bar_tables'})
+export class BarTablesEntity {
     @PrimaryGeneratedColumn({name: 'table_id'})
     id: number
 
@@ -11,6 +11,9 @@ export class TablesEntity {
     @Column()
     status: string
 
-    @Column()
+    @Column({default: 0})
+    provisionaltotal: number
+
+    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     created_at: Date
 };

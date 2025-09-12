@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm";
 import { Product } from "./entities/product";
 import { ProductCategory } from "./entities/productCategory";
+import {BarTablesEntity} from "./entities/table";
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -11,7 +12,7 @@ export const AppDataSource = new DataSource({
     database: 'corral_pos_system',
     synchronize: false, //Crea automaticamente las tablas al iniciar la conexión
     logging: false,
-    entities: [Product, ProductCategory],
+    entities: [Product, ProductCategory,BarTablesEntity],
     subscribers: [],
     migrations: []
 });

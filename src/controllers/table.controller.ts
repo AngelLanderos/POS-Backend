@@ -1,20 +1,29 @@
 import { Request, Response } from "express"
-import { TablesEntity } from "../entities/table";
+import {  BarTablesEntity } from "../entities/table";
 import { AppDataSource } from "../data-source";
 
-const TableRepository = AppDataSource.getRepository(TablesEntity);
+const TableRepository = AppDataSource.getRepository(BarTablesEntity);
 
 const TableController = {
     getTables: async (req: Request,res: Response) => {
         try {
-            const tables = await TableRepository.find({});
+            console.log(1);
+            const tables = await TableRepository.find({
+              order: {
+                table_number: "ASC",
+              },
+            });
             
             return res.status(200).json(tables);
 
         } catch (error) {
+            console.log(error);
             return res.status(500).json({
-                message: 'Error getting tables'
+                message: 'Error getting tables',
+                error
             })
         }
     }
 };
+
+export default TableController;

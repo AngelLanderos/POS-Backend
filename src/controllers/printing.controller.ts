@@ -1,4 +1,3 @@
-
 import { spawn } from "child_process";
 import path from "path";
 
@@ -31,10 +30,3 @@ export function printTicket(order: any): Promise<void> {
   });
 }
 
-// {
-//     "items": [
-//       { "qty": 2, "name": "Cuba Libre", "price": 50 },
-//       { "qty": 1, "name": "Mojito", "price": 80 }
-//     ],
-//     "total": 180
-//   }
