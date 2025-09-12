@@ -15,7 +15,6 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "npm run dev",
     "tsc": "tsc",
     "dev": "ts-node-dev --respawn src/index.ts",
     "build": "tsc",
@@ -23,9 +22,11 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
+    "@types/escpos": "^2.5.5",
     "@types/express": "^5.0.3",
     "@types/morgan": "^1.9.10",
-    "@types/node": "^24.3.0",
+    "@types/node": "^24.3.1",
+    "@types/printer": "^0.4.5",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "morgan": "^1.10.1",
@@ -35,9 +36,14 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "20": "^3.1.9",
+    "escpos": "^3.0.0-alpha.6",
+    "node-thermal-printer": "^4.5.0",
     "pg": "^8.16.3",
     "pg-query-stream": "^4.10.3",
+    "printer-lp": "^1.0.3",
     "reflect-metadata": "^0.2.2",
-    "typeorm": "^0.3.26"
+    "typeorm": "^0.3.26",
+    "usb": "^2.16.0"
   }
 }
