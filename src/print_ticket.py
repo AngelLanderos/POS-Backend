@@ -1,14 +1,12 @@
-# print_ticket.py
 import sys
 import json
 from escpos.printer import Win32Raw
+from datetime import datetime
 
-def main():
-    raw_data = sys.stdin.read()
-    data = json.loads(raw_data)
+PRINTER_NAME = "EPSON TM-T20III Receipt"  # ⚠️ Ajusta con el nombre exacto de tu impresora en Windows
 
-    PRINTER_NAME = "POS5"  # ⚠️ Ajusta con tu nombre de impresora en Windows
-
+def print_order(data):
+    """Ticket para bartender con los productos"""
     printer = Win32Raw(PRINTER_NAME)
 
     # Encabezado
@@ -37,9 +35,45 @@ def main():
 
     # Cierre
     printer.set(align="center", bold=False)
-    printer.text("\n¡Gracias por su compra!\n")
+    printer.text("\n¡Gracias!\n")
     printer.cut()
+
+
+def print_payment(data):
+    """Ticket de comprobante de pago"""
+    printer = Win32Raw(PRINTER_NAME)
+
+    # Encabezado
+    printer.set(align="center", bold=True, width=2, height=2)
+    printer.text("*** COMPROBANTE DE PAGO ***\n")
+    printer.text("--------------------------------\n")
+
+    # Total
+    printer.set(align="center", bold=True, width=2, height=2)
+    printer.text(f"TOTAL PAGADO\n${float(data['total']):.2f}\n")
+    printer.text("--------------------------------\n")
+
+    # Fecha y hora
+    now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    printer.set(align="center", bold=False)
+    printer.text(f"\nFecha: {now}\n")
+
+    # Footer
+    printer.text("\nGracias por su compra\n")
+    printer.text("Vuelva pronto\n")
+    printer.cut()
+
+
+def main():
+    raw_data = sys.stdin.read()
+    data = json.loads(raw_data)
+
+    # ⚡ Decidir qué tipo de ticket imprimir
+    if "products" in data and "table" in data:
+        print_order(data)   # Ticket de bartender
+    elif "total" in data:
+        print_payment(data) # Ticket de comprobante de pago
+
 
 if __name__ == "__main__":
     main()
-

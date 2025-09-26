@@ -1,15 +1,16 @@
 import { Response, Request } from "express";
 import { printTicket } from "./printing.controller";
 import { BarTablesEntity } from "../entities/table";
+import { DailyTotal } from "../entities/dairly_total";
 import { AppDataSource } from "../data-source";
 
 const TableRepository = AppDataSource.getRepository(BarTablesEntity);
+const DailyTotalRepository = AppDataSource.getRepository(DailyTotal);
 
 const AccountController = {
 createProvitionalAccount: async (req: Request, res: Response) => {
   try {
     const {order } = req.body;
-
 
     // Actualiza la mesa en la BD
     await TableRepository.increment(
@@ -19,7 +20,7 @@ createProvitionalAccount: async (req: Request, res: Response) => {
     );
 
     // Enviar TODO el objeto al script de Python
-    await printTicket({ products: order.products,total: order.total, table: order.table });
+    // await printTicket({ products: order.products,total: order.total, table: order.table });
 
     return res.status(200).json("Orden creada correctamente");
   } catch (error) {
@@ -41,9 +42,14 @@ createProvitionalAccount: async (req: Request, res: Response) => {
         payment // cantidad a sumar
       );
 
-      ///TODO: Imprimir correctamente
+     await DailyTotalRepository.increment(
+      {}, "total", payment
+     );
 
-    //   await printTicket(order.products);
+     console.log(1);
+      // TODO: Imprimir correctamente
+
+      await printTicket({total: payment});
 
       return res.status(200).json("Pago procesado correctamente");
     } catch (error) {

@@ -2,6 +2,7 @@ import { DataSource } from "typeorm";
 import { Product } from "./entities/product";
 import { ProductCategory } from "./entities/productCategory";
 import {BarTablesEntity} from "./entities/table";
+import { DailyTotal } from "./entities/dairly_total";
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -12,7 +13,7 @@ export const AppDataSource = new DataSource({
     database: 'pos2',
     synchronize: false, //Crea automaticamente las tablas al iniciar la conexión
     logging: false,
-    entities: [Product, ProductCategory,BarTablesEntity],
+    entities: [Product, ProductCategory,BarTablesEntity,DailyTotal],
     subscribers: [],
     migrations: []
 });
