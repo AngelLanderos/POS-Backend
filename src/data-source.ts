@@ -3,6 +3,8 @@ import { Product } from "./entities/product";
 import { ProductCategory } from "./entities/productCategory";
 import {BarTablesEntity} from "./entities/table";
 import { DailyTotal } from "./entities/dairly_total";
+import { OrderItem } from "./entities/orderItems";
+import { Order } from "./entities/order";
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -13,7 +15,7 @@ export const AppDataSource = new DataSource({
     database: 'pos2',
     synchronize: false, //Crea automaticamente las tablas al iniciar la conexión
     logging: false,
-    entities: [Product, ProductCategory,BarTablesEntity,DailyTotal],
+    entities: [Product, ProductCategory,BarTablesEntity,DailyTotal, OrderItem, Order],
     subscribers: [],
     migrations: []
 });
