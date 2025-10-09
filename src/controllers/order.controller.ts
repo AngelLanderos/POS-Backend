@@ -15,10 +15,19 @@ const DailyTotalRepository = AppDataSource.getRepository(DailyTotal);
 const OrderController = {
 createNewOrder: async (req: Request, res: Response) => {
   try {
-    const {order} = req.body;
+    
+    const { order } = req.body;
+    
+    if (!order || !order.table || !Array.isArray(order.products)) {
+      return res.status(400).json({ error: "Payload inválido" });
+    }
 
-    console.log(order.products);
-    // Actualiza la mesa en la BD
+    const computedTotal = order.products.reduce((acc: number, p: any) => {
+      const price = Number(p.price ?? p.unit_price ?? 0) || 0;
+      const qty = Number(p.quantity ?? 1) || 1;
+      const line = price * qty;
+      return acc + line;
+    }, 0);
 
     //TODO Calcular el total de la mesa con respecto a las ordenes
     await TableRepository.increment(
@@ -41,6 +50,8 @@ createNewOrder: async (req: Request, res: Response) => {
     for(let i = 0; i < order.products.length; i++){
       let product = order.products[i];
       
+      const productId = Number(product.product.id)
+
       let newOrderItem = OrderItemRepository.create({
         quantity: product.quantity,
         unit_price: product.price,
@@ -48,12 +59,13 @@ createNewOrder: async (req: Request, res: Response) => {
         notes: '',
         created_at: new Date(),
         order_id:saveOrder.order_id,
-        product_id: product.id
+        product: productId
       })
 
       await newOrderItem.save();
     };
     
+
     // Enviar TODO el objeto al script de Python 
     // await printTicket({ products: order.products,total: order.total, table: order.table });
   
@@ -88,6 +100,22 @@ createNewOrder: async (req: Request, res: Response) => {
       await printTicket({total: payment});
 
       return res.status(200).json("Pago procesado correctamente");
+    } catch (error) {
+      return res.status(500).json("Error");
+    }
+  },
+
+  getOrders: async (req: Request, res: Response) => {
+    try {
+      const {tableId} = req.body;
+
+      const orders = await OrderRepository.find({})
+
+      return res.status(200).json({
+        message: 'Orders found successfully',
+        orders
+      });
+      
     } catch (error) {
       return res.status(500).json("Error");
     }

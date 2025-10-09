@@ -8,6 +8,7 @@ import printingRouter from "./routes/printing.routes";
 import { printTicket } from "./controllers/printing.controller";
 import TableRouter from "./routes/table.routes";
 import OrderRouter from "./routes/order.routes";
+import orderItemRouter from "./routes/orderItems.routes";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use('/productCategories',productCategoryRouter);
 app.use('/printing',printingRouter);
 app.use('/tables',TableRouter);
 app.use('/orders',OrderRouter);
+app.use('/orderItems', orderItemRouter)
 
 app.get('/', (req: Request, res: Response) => {
     res.send('Hello Word');

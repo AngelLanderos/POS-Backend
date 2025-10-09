@@ -26,7 +26,7 @@ export class OrderItem extends BaseEntity{
     @JoinColumn({name: 'order_id'})
     order_id: number
 
-    @ManyToOne(() =>  Product)
-    @JoinColumn({name: 'product_id'})
-    product_id: number
+    @ManyToOne(() => Product)
+    @JoinColumn({ name: 'product_id' })
+    product: number;
 }
