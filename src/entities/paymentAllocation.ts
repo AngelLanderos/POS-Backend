@@ -10,6 +10,9 @@ export class PaymentAllocation extends BaseEntity {
     @Column({name: 'amount'})
     amount: number;
 
+    @Column({name: 'quantity'})
+    quantity: number;
+
     @CreateDateColumn()
     created_at: Date   
 

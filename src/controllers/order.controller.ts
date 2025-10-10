@@ -17,11 +17,13 @@ createNewOrder: async (req: Request, res: Response) => {
   try {
     
     const { order } = req.body;
-    
+      console.log(order);
+
     if (!order || !order.table || !Array.isArray(order.products)) {
       return res.status(400).json({ error: "Payload inválido" });
     }
 
+    console.log(1);
     const computedTotal = order.products.reduce((acc: number, p: any) => {
       const price = Number(p.price ?? p.unit_price ?? 0) || 0;
       const qty = Number(p.quantity ?? 1) || 1;
@@ -29,12 +31,16 @@ createNewOrder: async (req: Request, res: Response) => {
       return acc + line;
     }, 0);
 
+    console.log(2);
+
     //TODO Calcular el total de la mesa con respecto a las ordenes
     await TableRepository.increment(
       { table_number: order.table },
       "provisionalTotal",
       order.total
     );
+
+    console.log(3);
 
     //TODO Para la mesa, crear una orden y crear los registros de order items
 
@@ -44,25 +50,32 @@ createNewOrder: async (req: Request, res: Response) => {
       table_id: order.table
     });
 
+    console.log(4);
+
     const saveOrder = await newOrder.save();
     // { name: 'Shot Sauza', price: '70', size: 'large', quantity: 1 }
 
     for(let i = 0; i < order.products.length; i++){
       let product = order.products[i];
       
-      const productId = Number(product.product_id)
+      const productId = Number(product.id)
 
       let newOrderItem = OrderItemRepository.create({
-        quantity: product.quantity,
-        unit_price: product.price,
+        quantity: Number(product.quantity),
+        unit_price: Number(product.price),
         discount: 0,
         notes: '',
         created_at: new Date(),
-        order_id:saveOrder.order_id,
+        order_id: saveOrder.order_id,
         product: productId
       })
 
+    console.log(5);
+
+
       await newOrderItem.save();
+
+      console.log(6);
     };
     
 

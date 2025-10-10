@@ -16,8 +16,17 @@ export class OrderItem extends BaseEntity{
     @Column({name: 'discount'})
     discount: number
 
+    @Column({name: 'paid_quantity'})
+    paid_quantity: number
+    
+    @Column({name: 'paid_amount'})
+    paid_amount: number
+
     @Column({name: 'notes'})
     notes: string
+
+    @Column({name: 'is_paid'})
+    is_paid: boolean
 
     @CreateDateColumn()
     created_at: Date
