@@ -21,21 +21,18 @@ const OrderItemController = {
       const items = await OrderItemRepository.createQueryBuilder("a")
         .innerJoin("products", "b", "a.product_id = b.product_id")
         .innerJoin("orders", "c", "a.order_id = c.order_id")
-        .leftJoin(
-          "payment_allocation",
-          "d",
-          "a.order_item_id = d.order_item_id"
-        )
-        .where("d.order_item_id IS NULL")
+        .where("a.is_paid = false")
         .select([
           "b.name AS name",
           "a.quantity AS quantity",
           "a.unit_price AS unit_price",
           "c.table_id AS table_id",
           "a.order_item_id AS order_item_id",
+          "a.paid_quantity AS paid_quantity",
         ])
         .getRawMany();
 
+        console.log(items);
       return res.status(200).json(items);
     } catch (error) {
       console.error("getOrderItems error:", error);
