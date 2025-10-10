@@ -50,7 +50,7 @@ createNewOrder: async (req: Request, res: Response) => {
     for(let i = 0; i < order.products.length; i++){
       let product = order.products[i];
       
-      const productId = Number(product.product.id)
+      const productId = Number(product.product_id)
 
       let newOrderItem = OrderItemRepository.create({
         quantity: product.quantity,
