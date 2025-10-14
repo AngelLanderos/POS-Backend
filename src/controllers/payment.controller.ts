@@ -5,7 +5,7 @@ import { AppDataSource } from "../data-source";
 import { BarTablesEntity } from "../entities/table";
 import { DailyTotal } from "../entities/dairly_total";
 import { OrderItem } from "../entities/orderItems";
-
+import { printTicket } from "./printing.controller";
 
 const PaymentRepository = AppDataSource.getRepository(Payments);
 const PaymentAllocationRepository = AppDataSource.getRepository(PaymentAllocation);
@@ -149,7 +149,6 @@ const PaymentController = {
 
         // 7) Actualizar provisionalTotal de la mesa (decrementar por el monto cobrado)
         // Asegúrate que la columna y la condición coinciden con tu entidad BarTablesEntity
-        console.log({totalAmount});
         await trx.getRepository(BarTablesEntity).decrement(
           { id: table_id },
           "provisionalTotal",
@@ -189,6 +188,9 @@ const PaymentController = {
             );
           }
         }
+
+        //TODO Impresión de ticket de pago
+              await printTicket({total: payment});
 
         return {
           payment: savedPayment,

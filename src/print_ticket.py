@@ -35,7 +35,6 @@ def print_order(data):
 
     # Cierre
     printer.set(align="center", bold=False)
-    printer.text("\n¡Gracias!\n")
     printer.cut()
 
 
