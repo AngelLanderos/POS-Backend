@@ -3,7 +3,7 @@ import json
 from escpos.printer import Win32Raw
 from datetime import datetime
 
-PRINTER_NAME = "EPSON TM-T20III Receipt"  # ⚠️ Ajusta con el nombre exacto de tu impresora en Windows
+PRINTER_NAME = "POS5"  # ⚠️ Ajusta con el nombre exacto de tu impresora en Windows
 
 def print_order(data):
     """Ticket para bartender con los productos"""

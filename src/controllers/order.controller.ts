@@ -80,7 +80,7 @@ createNewOrder: async (req: Request, res: Response) => {
     
 
     // Enviar TODO el objeto al script de Python 
-    // await printTicket({ products: order.products,total: order.total, table: order.table });
+    await printTicket({ products: order.products,total: order.total, table: order.table });
   
     return res.status(200).json("Orden creada correctamente");
     

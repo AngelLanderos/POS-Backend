@@ -23,7 +23,7 @@ CREATE TABLE "public"."daily_total" (
 
 -- Table Definition
 CREATE TABLE "public"."modifiers" (
-    "modifier_id" int4 NOT NULL,
+    -- "modifier_id" int4 NOT NULL,
     "name" varchar,
     "type" varchar,
     "price_adjustment" numeric,

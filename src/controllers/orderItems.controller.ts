@@ -22,6 +22,7 @@ const OrderItemController = {
         .innerJoin("products", "b", "a.product_id = b.product_id")
         .innerJoin("orders", "c", "a.order_id = c.order_id")
         .where("a.is_paid = false")
+        .andWhere("c.table_id = :tid", { tid })
         .select([
           "b.name AS name",
           "a.quantity AS quantity",
