@@ -65,6 +65,8 @@ createNewOrder: async (req: Request, res: Response) => {
       await newOrderItem.save();
 
     };
+
+    await TableRepository.update({ id: order.table }, { status: 'occupied' });
     
     // Enviar TODO el objeto al script de Python 
     // await printTicket({ products: order.products,total: order.total, table: order.table });

@@ -33,7 +33,6 @@ const OrderItemController = {
         ])
         .getRawMany();
 
-        console.log(items);
       return res.status(200).json(items);
     } catch (error) {
       console.error("getOrderItems error:", error);
