@@ -180,6 +180,9 @@ const PaymentController = {
       };
     });
 
+    //TODO Imprimir ticket de pago
+
+
     // responder con el resultado
     return res.status(201).json({
       message: "Payment created successful",

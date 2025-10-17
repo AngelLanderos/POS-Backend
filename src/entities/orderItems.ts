@@ -31,7 +31,7 @@ export class OrderItem extends BaseEntity{
     @CreateDateColumn()
     created_at: Date
 
-    @ManyToOne(() => Order)
+    @ManyToOne(() => Order, {nullable: true})
     @JoinColumn({name: 'order_id'})
     order_id: number
 

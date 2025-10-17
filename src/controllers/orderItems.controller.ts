@@ -24,6 +24,7 @@ const OrderItemController = {
         .where("a.is_paid = false")
         .andWhere("c.table_id = :tid", { tid })
         .select([
+          "b.product_id AS product_id",
           "b.name AS name",
           "a.quantity AS quantity",
           "a.unit_price AS unit_price",
@@ -39,6 +40,39 @@ const OrderItemController = {
       return res.status(500).json({ error: "Error al obtener order items" });
     }
   },
+  createItemsForBarSale: async (req: Request, res: Response) => {
+    try {
+      const {products} = req.body;
+
+      for( const product of products ){
+      
+        const productId = Number(product.id)
+        const paid_amount = Number(product.quantity) * Number(product.price);
+
+        let newOrderItem = OrderItemRepository.create({
+          quantity: Number(product.quantity),
+          unit_price: Number(product.price),
+          discount: 0,
+          paid_quantity: Number(product.quantity),
+          paid_amount,
+          is_paid: true,
+          notes: '',
+          created_at: new Date(),
+          product: productId
+        })
+
+        await newOrderItem.save();  
+    
+      };
+
+      //TODO Imprimir ticket de pago
+      
+      return res.status(200).json('Venta en barra hecha correctamente');
+
+    } catch (error) {
+      return res.status(500).json(`Error: ${error}`)
+    }
+  }
 };
 
 export default OrderItemController;

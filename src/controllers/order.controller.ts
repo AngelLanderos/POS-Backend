@@ -79,7 +79,6 @@ createNewOrder: async (req: Request, res: Response) => {
   }
 },
 
-
   provitionalPayment: async (req: Request, res: Response) => {
     try {
       const { tableNumber,payment } = req.body;
