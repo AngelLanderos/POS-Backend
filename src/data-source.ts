@@ -1,5 +1,4 @@
 import { DataSource } from "typeorm";
-import { Product } from "./entities/product";
 import { ProductCategory } from "./entities/productCategory";
 import {BarTablesEntity} from "./entities/table";
 import { DailyTotal } from "./entities/dairly_total";
@@ -7,6 +6,7 @@ import { OrderItem } from "./entities/orderItems";
 import { Order } from "./entities/order";
 import { Payments } from "./entities/payment";
 import { PaymentAllocation } from "./entities/paymentAllocation";
+import { Product } from "./entities/product";
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -21,3 +21,4 @@ export const AppDataSource = new DataSource({
     subscribers: [],
     migrations: []
 });
+

@@ -24,6 +24,9 @@ export class Product {
   @Column({ nullable: true })
   description: string;
 
+  @Column({ nullable: true })
+  image_url: string;
+
   @Column({ default: true })
   is_active: boolean;
 
